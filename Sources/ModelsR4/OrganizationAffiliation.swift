@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Defines an affiliation/assotiation/relationship between 2 distinct oganizations, that is not a part-of

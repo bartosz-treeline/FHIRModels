@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Whether the effect estimate is an absolute effect estimate (absolute difference) or a relative effect estimate

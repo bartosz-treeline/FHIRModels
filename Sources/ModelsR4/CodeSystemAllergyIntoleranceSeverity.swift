@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A SubstanceProtein is defined as a single unit of a linear amino acid sequence, or a combination of subunits that are

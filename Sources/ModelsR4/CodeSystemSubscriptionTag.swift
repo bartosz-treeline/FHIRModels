@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Tags to put on a resource after subscriptions have been sent.

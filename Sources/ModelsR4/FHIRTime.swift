@@ -17,7 +17,7 @@
 //  limitations under the License.
 
 import Foundation
-import FMCore
+
 
 /**
  A time during the day, in the format hh:mm:ss. There is no date specified. Seconds must be provided due to schema type

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  The type of measure (includes codes from 2.16.840.1.113883.1.11.20368).

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Indicates whether this flag is active and needs to be displayed to a user, or whether it is no longer needed or was

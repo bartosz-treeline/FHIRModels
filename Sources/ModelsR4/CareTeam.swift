@@ -17,62 +17,60 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
-
 /**
  Planned participants in the coordination and delivery of care for a patient or group.
- 
+
  The Care Team includes all the people and organizations who plan to participate in the coordination and delivery of
  care for a patient.
  */
 open class CareTeam: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .careTeam }
-	
+
 	/// External Ids for this team
 	public var identifier: [Identifier]?
-	
+
 	/// Indicates the current state of the care team.
 	public var status: FHIRPrimitive<CareTeamStatus>?
-	
+
 	/// Type of team
 	public var category: [CodeableConcept]?
-	
+
 	/// Name of the team, such as crisis assessment team
 	public var name: FHIRPrimitive<FHIRString>?
-	
+
 	/// Who care team is for
 	public var subject: Reference?
-	
+
 	/// Encounter created as part of
 	public var encounter: Reference?
-	
+
 	/// Time period team covers
 	public var period: Period?
-	
+
 	/// Members of the team
 	public var participant: [CareTeamParticipant]?
-	
+
 	/// Why the care team exists
 	public var reasonCode: [CodeableConcept]?
-	
+
 	/// Why the care team exists
 	public var reasonReference: [Reference]?
-	
+
 	/// Organization responsible for the care team
 	public var managingOrganization: [Reference]?
-	
+
 	/// A contact detail for the care team (that applies to all members)
 	public var telecom: [ContactPoint]?
-	
+
 	/// Comments made about the CareTeam
 	public var note: [Annotation]?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		category: [CodeableConcept]? = nil,
@@ -120,9 +118,9 @@ open class CareTeam: DomainResource {
 		self.telecom = telecom
 		self.text = text
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case category
 		case encounter
@@ -138,11 +136,11 @@ open class CareTeam: DomainResource {
 		case subject
 		case telecom
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
@@ -159,11 +157,11 @@ open class CareTeam: DomainResource {
 		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try category?.encode(on: &_container, forKey: .category)
 		try encounter?.encode(on: &_container, forKey: .encounter)
@@ -180,9 +178,9 @@ open class CareTeam: DomainResource {
 		try telecom?.encode(on: &_container, forKey: .telecom)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? CareTeam else {
 			return false
@@ -204,7 +202,7 @@ open class CareTeam: DomainResource {
 		    && subject == _other.subject
 		    && telecom == _other.telecom
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(category)
@@ -225,28 +223,28 @@ open class CareTeam: DomainResource {
 
 /**
  Members of the team.
- 
+
  Identifies all people and organizations who are expected to be involved in the care team.
  */
 open class CareTeamParticipant: BackboneElement {
-	
+
 	/// Type of involvement
 	public var role: [CodeableConcept]?
-	
+
 	/// Who is involved
 	public var member: Reference?
-	
+
 	/// Organization of the practitioner
 	public var onBehalfOf: Reference?
-	
+
 	/// Time period of participant
 	public var period: Period?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -266,20 +264,20 @@ open class CareTeamParticipant: BackboneElement {
 		self.period = period
 		self.role = role
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case member
 		case onBehalfOf
 		case period
 		case role
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.member = try Reference(from: _container, forKeyIfPresent: .member)
 		self.onBehalfOf = try Reference(from: _container, forKeyIfPresent: .onBehalfOf)
@@ -287,11 +285,11 @@ open class CareTeamParticipant: BackboneElement {
 		self.role = try [CodeableConcept](from: _container, forKeyIfPresent: .role)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try member?.encode(on: &_container, forKey: .member)
 		try onBehalfOf?.encode(on: &_container, forKey: .onBehalfOf)
@@ -299,9 +297,9 @@ open class CareTeamParticipant: BackboneElement {
 		try role?.encode(on: &_container, forKey: .role)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? CareTeamParticipant else {
 			return false
@@ -314,7 +312,7 @@ open class CareTeamParticipant: BackboneElement {
 		    && period == _other.period
 		    && role == _other.role
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(member)

@@ -17,30 +17,30 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  The definition of a specific activity to be taken, independent of any particular patient or context.
- 
+
  This resource allows for the definition of some activity to be performed, independent of a particular patient,
  practitioner, or other performance context.
  */
 open class ActivityDefinition: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .activityDefinition }
-	
+
 	/// All possible types for "product[x]"
 	public enum ProductX: Hashable {
 		case codeableConcept(CodeableConcept)
 		case reference(Reference)
 	}
-	
+
 	/// All possible types for "subject[x]"
 	public enum SubjectX: Hashable {
 		case codeableConcept(CodeableConcept)
 		case reference(Reference)
 	}
-	
+
 	/// All possible types for "timing[x]"
 	public enum TimingX: Hashable {
 		case age(Age)
@@ -50,156 +50,156 @@ open class ActivityDefinition: DomainResource {
 		case range(Range)
 		case timing(Timing)
 	}
-	
+
 	/// Canonical identifier for this activity definition, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
-	
+
 	/// Additional identifier for the activity definition
 	public var identifier: [Identifier]?
-	
+
 	/// Business version of the activity definition
 	public var version: FHIRPrimitive<FHIRString>?
-	
+
 	/// Name for this activity definition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
-	
+
 	/// Name for this activity definition (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
-	
+
 	/// Subordinate title of the activity definition
 	public var subtitle: FHIRPrimitive<FHIRString>?
-	
+
 	/// The status of this activity definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
-	
+
 	/// For testing purposes, not real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
-	
+
 	/// Type of individual the activity definition is intended for
 	/// One of `subject[x]`
 	public var subject: SubjectX?
-	
+
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
-	
+
 	/// Name of the publisher (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
-	
+
 	/// Contact details for the publisher
 	public var contact: [ContactDetail]?
-	
+
 	/// Natural language description of the activity definition
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
+
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
-	
+
 	/// Intended jurisdiction for activity definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
-	
+
 	/// Why this activity definition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
-	
+
 	/// Describes the clinical usage of the activity definition
 	public var usage: FHIRPrimitive<FHIRString>?
-	
+
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
-	
+
 	/// When the activity definition was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
-	
+
 	/// When the activity definition was last reviewed
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
-	
+
 	/// When the activity definition is expected to be used
 	public var effectivePeriod: Period?
-	
+
 	/// E.g. Education, Treatment, Assessment, etc.
 	public var topic: [CodeableConcept]?
-	
+
 	/// Who authored the content
 	public var author: [ContactDetail]?
-	
+
 	/// Who edited the content
 	public var editor: [ContactDetail]?
-	
+
 	/// Who reviewed the content
 	public var reviewer: [ContactDetail]?
-	
+
 	/// Who endorsed the content
 	public var endorser: [ContactDetail]?
-	
+
 	/// Additional documentation, citations, etc.
 	public var relatedArtifact: [RelatedArtifact]?
-	
+
 	/// Logic used by the activity definition
 	public var library: [FHIRPrimitive<Canonical>]?
-	
+
 	/// A description of the kind of resource the activity definition is representing. For example, a MedicationRequest,
 	/// a ServiceRequest, or a CommunicationRequest. Typically, but not always, this is a Request resource.
 	public var kind: FHIRPrimitive<RequestResourceType>?
-	
+
 	/// What profile the resource needs to conform to
 	public var profile: FHIRPrimitive<Canonical>?
-	
+
 	/// Detail type of activity
 	public var code: CodeableConcept?
-	
+
 	/// Indicates the level of authority/intentionality associated with the activity and where the request should fit
 	/// into the workflow chain.
 	public var intent: FHIRPrimitive<RequestIntent>?
-	
+
 	/// Indicates how quickly the activity  should be addressed with respect to other requests.
 	public var priority: FHIRPrimitive<RequestPriority>?
-	
+
 	/// True if the activity should not be performed
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
-	
+
 	/// When activity is to occur
 	/// One of `timing[x]`
 	public var timing: TimingX?
-	
+
 	/// Where it should happen
 	public var location: Reference?
-	
+
 	/// Who should participate in the action
 	public var participant: [ActivityDefinitionParticipant]?
-	
+
 	/// What's administered/supplied
 	/// One of `product[x]`
 	public var product: ProductX?
-	
+
 	/// How much is administered/consumed/supplied
 	public var quantity: Quantity?
-	
+
 	/// Detailed dosage instructions
 	public var dosage: [Dosage]?
-	
+
 	/// What part of body to perform on
 	public var bodySite: [CodeableConcept]?
-	
+
 	/// What specimens are required to perform this action
 	public var specimenRequirement: [Reference]?
-	
+
 	/// What observations are required to perform this action
 	public var observationRequirement: [Reference]?
-	
+
 	/// What observations must be produced by this action
 	public var observationResultRequirement: [Reference]?
-	
+
 	/// Transform to apply the template
 	public var transform: FHIRPrimitive<Canonical>?
-	
+
 	/// Dynamic aspects of the definition
 	public var dynamicValue: [ActivityDefinitionDynamicValue]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<PublicationStatus>) {
 		self.status = status
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
@@ -312,9 +312,9 @@ open class ActivityDefinition: DomainResource {
 		self.useContext = useContext
 		self.version = version
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case approvalDate; case _approvalDate
 		case author
@@ -370,11 +370,11 @@ open class ActivityDefinition: DomainResource {
 		case useContext
 		case version; case _version
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
@@ -487,11 +487,11 @@ open class ActivityDefinition: DomainResource {
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
 		try author?.encode(on: &_container, forKey: .author)
@@ -570,9 +570,9 @@ open class ActivityDefinition: DomainResource {
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ActivityDefinition else {
 			return false
@@ -627,7 +627,7 @@ open class ActivityDefinition: DomainResource {
 		    && useContext == _other.useContext
 		    && version == _other.version
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(approvalDate)
@@ -681,26 +681,26 @@ open class ActivityDefinition: DomainResource {
 
 /**
  Dynamic aspects of the definition.
- 
+
  Dynamic values that will be evaluated to produce values for elements of the resulting resource. For example, if the
  dosage of a medication must be computed based on the patient's weight, a dynamic value would be used to specify an
  expression that calculated the weight, and the path on the request resource that would contain the result.
  */
 open class ActivityDefinitionDynamicValue: BackboneElement {
-	
+
 	/// The path to the element to be set dynamically
 	public var path: FHIRPrimitive<FHIRString>
-	
+
 	/// An expression that provides the dynamic value for the customization
 	public var expression: Expression
-	
+
 	/// Designated initializer taking all required properties
 	public init(expression: Expression, path: FHIRPrimitive<FHIRString>) {
 		self.expression = expression
 		self.path = path
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		expression: Expression,
@@ -714,36 +714,36 @@ open class ActivityDefinitionDynamicValue: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case expression
 		case path; case _path
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.expression = try Expression(from: _container, forKey: .expression)
 		self.path = try FHIRPrimitive<FHIRString>(from: _container, forKey: .path, auxiliaryKey: ._path)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try expression.encode(on: &_container, forKey: .expression)
 		try path.encode(on: &_container, forKey: .path, auxiliaryKey: ._path)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ActivityDefinitionDynamicValue else {
 			return false
@@ -754,7 +754,7 @@ open class ActivityDefinitionDynamicValue: BackboneElement {
 		return expression == _other.expression
 		    && path == _other.path
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(expression)
@@ -764,23 +764,23 @@ open class ActivityDefinitionDynamicValue: BackboneElement {
 
 /**
  Who should participate in the action.
- 
+
  Indicates who should participate in performing the action described.
  */
 open class ActivityDefinitionParticipant: BackboneElement {
-	
+
 	/// The type of participant in the action.
 	public var type: FHIRPrimitive<ActionParticipantType>
-	
+
 	/// E.g. Nurse, Surgeon, Parent, etc.
 	public var role: CodeableConcept?
-	
+
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<ActionParticipantType>) {
 		self.type = type
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -795,36 +795,36 @@ open class ActivityDefinitionParticipant: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.role = role
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case role
 		case type; case _type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
 		self.type = try FHIRPrimitive<ActionParticipantType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try role?.encode(on: &_container, forKey: .role)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ActivityDefinitionParticipant else {
 			return false
@@ -835,7 +835,7 @@ open class ActivityDefinitionParticipant: BackboneElement {
 		return role == _other.role
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(role)

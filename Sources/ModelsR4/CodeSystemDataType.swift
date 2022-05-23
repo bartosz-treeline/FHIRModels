@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A version specific list of the data types defined by the FHIR specification for use as an element  type (any of the

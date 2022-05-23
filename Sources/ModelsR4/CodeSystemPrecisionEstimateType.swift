@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Method of reporting variability of estimates, such as confidence intervals, interquartile range or standard deviation.

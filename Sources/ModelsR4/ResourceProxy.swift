@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 public enum ResourceProxy: FHIRType {
 	case account(Account)

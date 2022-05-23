@@ -17,18 +17,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  A duration of time during which an organism (or a process) has existed.
  */
 open class Age: Quantity {
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		code: FHIRPrimitive<FHIRString>? = nil,
@@ -48,21 +48,21 @@ open class Age: Quantity {
 		self.unit = unit
 		self.value = value
 	}
-	
+
 	// MARK: - Codable
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? Age else {
 			return false
@@ -72,7 +72,7 @@ open class Age: Quantity {
 		}
 		return true
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 	}

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A set of common concept properties for use on coded systems throughout the FHIR eco-system.

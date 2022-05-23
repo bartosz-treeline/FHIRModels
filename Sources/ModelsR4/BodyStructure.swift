@@ -17,48 +17,48 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  Specific and identified anatomical structure.
- 
+
  Record details about an anatomical structure.  This resource may be used when a coded concept does not provide the
  necessary detail needed for the use case.
  */
 open class BodyStructure: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .bodyStructure }
-	
+
 	/// Bodystructure identifier
 	public var identifier: [Identifier]?
-	
+
 	/// Whether this record is in active use
 	public var active: FHIRPrimitive<FHIRBool>?
-	
+
 	/// Kind of Structure
 	public var morphology: CodeableConcept?
-	
+
 	/// Body site
 	public var location: CodeableConcept?
-	
+
 	/// Body site modifier
 	public var locationQualifier: [CodeableConcept]?
-	
+
 	/// Text description
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
+
 	/// Attached images
 	public var image: [Attachment]?
-	
+
 	/// Who this is about
 	public var patient: Reference
-	
+
 	/// Designated initializer taking all required properties
 	public init(patient: Reference) {
 		self.patient = patient
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		active: FHIRPrimitive<FHIRBool>? = nil,
@@ -95,9 +95,9 @@ open class BodyStructure: DomainResource {
 		self.morphology = morphology
 		self.text = text
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case active; case _active
 		case description_fhir = "description"; case _description_fhir = "_description"
@@ -108,11 +108,11 @@ open class BodyStructure: DomainResource {
 		case morphology
 		case patient
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -124,11 +124,11 @@ open class BodyStructure: DomainResource {
 		self.patient = try Reference(from: _container, forKey: .patient)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try active?.encode(on: &_container, forKey: .active, auxiliaryKey: ._active)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -140,9 +140,9 @@ open class BodyStructure: DomainResource {
 		try patient.encode(on: &_container, forKey: .patient)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BodyStructure else {
 			return false
@@ -159,7 +159,7 @@ open class BodyStructure: DomainResource {
 		    && morphology == _other.morphology
 		    && patient == _other.patient
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(active)

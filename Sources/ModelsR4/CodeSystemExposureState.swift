@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Whether the results by exposure is describing the results for the primary exposure of interest (exposure) or the

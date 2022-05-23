@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  This value set is provided as an example. The value set to instantiate this attribute should be drawn from a robust

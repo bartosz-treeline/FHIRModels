@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  The shelf-life and storage information for a medicinal product item or container can be described using this class.

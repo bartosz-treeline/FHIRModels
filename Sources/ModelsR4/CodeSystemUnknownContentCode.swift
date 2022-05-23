@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A code that indicates whether an application accepts unknown elements or extensions when reading resources.

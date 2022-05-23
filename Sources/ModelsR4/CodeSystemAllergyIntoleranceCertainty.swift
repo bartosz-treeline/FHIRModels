@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Statement about the degree of clinical certainty that a specific substance was the cause of the manifestation in a

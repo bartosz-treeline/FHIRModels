@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Source material shall capture information on the taxonomic and anatomical origins as well as the fraction of a material

@@ -17,100 +17,98 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
-
 /**
  Response to a claim predetermination or preauthorization.
- 
+
  This resource provides the adjudication details from the processing of a Claim resource.
  */
 open class ClaimResponse: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .claimResponse }
-	
+
 	/// Business Identifier for a claim response
 	public var identifier: [Identifier]?
-	
+
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
-	
+
 	/// More granular claim type
 	public var type: CodeableConcept
-	
+
 	/// More granular claim type
 	public var subType: CodeableConcept?
-	
+
 	/// A code to indicate whether the nature of the request is: to request adjudication of products and services
 	/// previously rendered; or requesting authorization and adjudication for provision in the future; or requesting the
 	/// non-binding adjudication of the listed products and services which could be provided in the future.
 	public var use: FHIRPrimitive<Use>
-	
+
 	/// The recipient of the products and services
 	public var patient: Reference
-	
+
 	/// Response creation date
 	public var created: FHIRPrimitive<DateTime>
-	
+
 	/// Party responsible for reimbursement
 	public var insurer: Reference
-	
+
 	/// Party responsible for the claim
 	public var requestor: Reference?
-	
+
 	/// Id of resource triggering adjudication
 	public var request: Reference?
-	
+
 	/// The outcome of the claim, predetermination, or preauthorization processing.
 	public var outcome: FHIRPrimitive<ClaimProcessingCodes>
-	
+
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
-	
+
 	/// Preauthorization reference
 	public var preAuthRef: FHIRPrimitive<FHIRString>?
-	
+
 	/// Preauthorization reference effective period
 	public var preAuthPeriod: Period?
-	
+
 	/// Party to be paid any benefits payable
 	public var payeeType: CodeableConcept?
-	
+
 	/// Adjudication for claim line items
 	public var item: [ClaimResponseItem]?
-	
+
 	/// Insurer added line items
 	public var addItem: [ClaimResponseAddItem]?
-	
+
 	/// Header-level adjudication
 	public var adjudication: [ClaimResponseItemAdjudication]?
-	
+
 	/// Adjudication totals
 	public var total: [ClaimResponseTotal]?
-	
+
 	/// Payment Details
 	public var payment: ClaimResponsePayment?
-	
+
 	/// Funds reserved status
 	public var fundsReserve: CodeableConcept?
-	
+
 	/// Printed form identifier
 	public var formCode: CodeableConcept?
-	
+
 	/// Printed reference or actual form
 	public var form: Attachment?
-	
+
 	/// Note concerning adjudication
 	public var processNote: [ClaimResponseProcessNote]?
-	
+
 	/// Request for additional information
 	public var communicationRequest: [Reference]?
-	
+
 	/// Patient insurance information
 	public var insurance: [ClaimResponseInsurance]?
-	
+
 	/// Processing errors
 	public var error: [ClaimResponseError]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingCodes>, patient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
 		self.created = created
@@ -122,7 +120,7 @@ open class ClaimResponse: DomainResource {
 		self.use = use
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		addItem: [ClaimResponseAddItem]? = nil,
@@ -191,9 +189,9 @@ open class ClaimResponse: DomainResource {
 		self.text = text
 		self.total = total
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case addItem
 		case adjudication
@@ -223,11 +221,11 @@ open class ClaimResponse: DomainResource {
 		case type
 		case use; case _use
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.addItem = try [ClaimResponseAddItem](from: _container, forKeyIfPresent: .addItem)
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKeyIfPresent: .adjudication)
@@ -258,11 +256,11 @@ open class ClaimResponse: DomainResource {
 		self.use = try FHIRPrimitive<Use>(from: _container, forKey: .use, auxiliaryKey: ._use)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try addItem?.encode(on: &_container, forKey: .addItem)
 		try adjudication?.encode(on: &_container, forKey: .adjudication)
@@ -293,9 +291,9 @@ open class ClaimResponse: DomainResource {
 		try use.encode(on: &_container, forKey: .use, auxiliaryKey: ._use)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponse else {
 			return false
@@ -331,7 +329,7 @@ open class ClaimResponse: DomainResource {
 		    && type == _other.type
 		    && use == _other.use
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(addItem)
@@ -366,87 +364,87 @@ open class ClaimResponse: DomainResource {
 
 /**
  Insurer added line items.
- 
+
  The first-tier service adjudications for payor added product or service lines.
  */
 open class ClaimResponseAddItem: BackboneElement {
-	
+
 	/// All possible types for "location[x]"
 	public enum LocationX: Hashable {
 		case address(Address)
 		case codeableConcept(CodeableConcept)
 		case reference(Reference)
 	}
-	
+
 	/// All possible types for "serviced[x]"
 	public enum ServicedX: Hashable {
 		case date(FHIRPrimitive<FHIRDate>)
 		case period(Period)
 	}
-	
+
 	/// Item sequence number
 	public var itemSequence: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Detail sequence number
 	public var detailSequence: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Subdetail sequence number
 	public var subdetailSequence: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Authorized providers
 	public var provider: [Reference]?
-	
+
 	/// Billing, service, product, or drug code
 	public var productOrService: CodeableConcept
-	
+
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
-	
+
 	/// Program the product or service is provided under
 	public var programCode: [CodeableConcept]?
-	
+
 	/// Date or dates of service or product delivery
 	/// One of `serviced[x]`
 	public var serviced: ServicedX?
-	
+
 	/// Place of service or where product was supplied
 	/// One of `location[x]`
 	public var location: LocationX?
-	
+
 	/// Count of products or services
 	public var quantity: Quantity?
-	
+
 	/// Fee, charge or cost per item
 	public var unitPrice: Money?
-	
+
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Total item cost
 	public var net: Money?
-	
+
 	/// Anatomical location
 	public var bodySite: CodeableConcept?
-	
+
 	/// Anatomical sub-location
 	public var subSite: [CodeableConcept]?
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Added items adjudication
 	public var adjudication: [ClaimResponseItemAdjudication]
-	
+
 	/// Insurer added line details
 	public var detail: [ClaimResponseAddItemDetail]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(adjudication: [ClaimResponseItemAdjudication], productOrService: CodeableConcept) {
 		self.adjudication = adjudication
 		self.productOrService = productOrService
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication],
@@ -492,9 +490,9 @@ open class ClaimResponseAddItem: BackboneElement {
 		self.subdetailSequence = subdetailSequence
 		self.unitPrice = unitPrice
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case bodySite
@@ -518,11 +516,11 @@ open class ClaimResponseAddItem: BackboneElement {
 		case subdetailSequence; case _subdetailSequence
 		case unitPrice
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKey: .adjudication)
 		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
@@ -576,11 +574,11 @@ open class ClaimResponseAddItem: BackboneElement {
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication.encode(on: &_container, forKey: .adjudication)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
@@ -618,9 +616,9 @@ open class ClaimResponseAddItem: BackboneElement {
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseAddItem else {
 			return false
@@ -647,7 +645,7 @@ open class ClaimResponseAddItem: BackboneElement {
 		    && subdetailSequence == _other.subdetailSequence
 		    && unitPrice == _other.unitPrice
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -673,45 +671,45 @@ open class ClaimResponseAddItem: BackboneElement {
 
 /**
  Insurer added line details.
- 
+
  The second-tier service adjudications for payor added services.
  */
 open class ClaimResponseAddItemDetail: BackboneElement {
-	
+
 	/// Billing, service, product, or drug code
 	public var productOrService: CodeableConcept
-	
+
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
-	
+
 	/// Count of products or services
 	public var quantity: Quantity?
-	
+
 	/// Fee, charge or cost per item
 	public var unitPrice: Money?
-	
+
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Total item cost
 	public var net: Money?
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Added items detail adjudication
 	public var adjudication: [ClaimResponseItemAdjudication]
-	
+
 	/// Insurer added line items
 	public var subDetail: [ClaimResponseAddItemDetailSubDetail]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(adjudication: [ClaimResponseItemAdjudication], productOrService: CodeableConcept) {
 		self.adjudication = adjudication
 		self.productOrService = productOrService
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication],
@@ -739,9 +737,9 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 		self.subDetail = subDetail
 		self.unitPrice = unitPrice
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case factor; case _factor
@@ -753,11 +751,11 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 		case subDetail
 		case unitPrice
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKey: .adjudication)
 		self.factor = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .factor, auxiliaryKey: ._factor)
@@ -770,11 +768,11 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication.encode(on: &_container, forKey: .adjudication)
 		try factor?.encode(on: &_container, forKey: .factor, auxiliaryKey: ._factor)
@@ -787,9 +785,9 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseAddItemDetail else {
 			return false
@@ -807,7 +805,7 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 		    && subDetail == _other.subDetail
 		    && unitPrice == _other.unitPrice
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -824,42 +822,42 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 
 /**
  Insurer added line items.
- 
+
  The third-tier service adjudications for payor added services.
  */
 open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
-	
+
 	/// Billing, service, product, or drug code
 	public var productOrService: CodeableConcept
-	
+
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
-	
+
 	/// Count of products or services
 	public var quantity: Quantity?
-	
+
 	/// Fee, charge or cost per item
 	public var unitPrice: Money?
-	
+
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Total item cost
 	public var net: Money?
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Added items detail adjudication
 	public var adjudication: [ClaimResponseItemAdjudication]
-	
+
 	/// Designated initializer taking all required properties
 	public init(adjudication: [ClaimResponseItemAdjudication], productOrService: CodeableConcept) {
 		self.adjudication = adjudication
 		self.productOrService = productOrService
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication],
@@ -885,9 +883,9 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 		self.quantity = quantity
 		self.unitPrice = unitPrice
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case factor; case _factor
@@ -898,11 +896,11 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 		case quantity
 		case unitPrice
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKey: .adjudication)
 		self.factor = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .factor, auxiliaryKey: ._factor)
@@ -914,11 +912,11 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication.encode(on: &_container, forKey: .adjudication)
 		try factor?.encode(on: &_container, forKey: .factor, auxiliaryKey: ._factor)
@@ -930,9 +928,9 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseAddItemDetailSubDetail else {
 			return false
@@ -949,7 +947,7 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 		    && quantity == _other.quantity
 		    && unitPrice == _other.unitPrice
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -965,29 +963,29 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 
 /**
  Processing errors.
- 
+
  Errors encountered during the processing of the adjudication.
  */
 open class ClaimResponseError: BackboneElement {
-	
+
 	/// Item sequence number
 	public var itemSequence: FHIRPrimitive<FHIRPositiveInteger>?
-	
+
 	/// Detail sequence number
 	public var detailSequence: FHIRPrimitive<FHIRPositiveInteger>?
-	
+
 	/// Subdetail sequence number
 	public var subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>?
-	
+
 	/// Error code detailing processing issues
 	public var code: CodeableConcept
-	
+
 	/// Designated initializer taking all required properties
 	public init(code: CodeableConcept) {
 		self.code = code
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		code: CodeableConcept,
@@ -1006,20 +1004,20 @@ open class ClaimResponseError: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.subDetailSequence = subDetailSequence
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case detailSequence; case _detailSequence
 		case itemSequence; case _itemSequence
 		case subDetailSequence; case _subDetailSequence
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.detailSequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .detailSequence, auxiliaryKey: ._detailSequence)
@@ -1027,11 +1025,11 @@ open class ClaimResponseError: BackboneElement {
 		self.subDetailSequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
 		try detailSequence?.encode(on: &_container, forKey: .detailSequence, auxiliaryKey: ._detailSequence)
@@ -1039,9 +1037,9 @@ open class ClaimResponseError: BackboneElement {
 		try subDetailSequence?.encode(on: &_container, forKey: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseError else {
 			return false
@@ -1054,7 +1052,7 @@ open class ClaimResponseError: BackboneElement {
 		    && itemSequence == _other.itemSequence
 		    && subDetailSequence == _other.subDetailSequence
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
@@ -1066,26 +1064,26 @@ open class ClaimResponseError: BackboneElement {
 
 /**
  Patient insurance information.
- 
+
  Financial instruments for reimbursement for the health care products and services specified on the claim.
  */
 open class ClaimResponseInsurance: BackboneElement {
-	
+
 	/// Insurance instance identifier
 	public var sequence: FHIRPrimitive<FHIRPositiveInteger>
-	
+
 	/// Coverage to be used for adjudication
 	public var focal: FHIRPrimitive<FHIRBool>
-	
+
 	/// Insurance information
 	public var coverage: Reference
-	
+
 	/// Additional provider contract number
 	public var businessArrangement: FHIRPrimitive<FHIRString>?
-	
+
 	/// Adjudication results
 	public var claimResponse: Reference?
-	
+
 	/// Designated initializer taking all required properties
 	public init(coverage: Reference, focal: FHIRPrimitive<FHIRBool>, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.coverage = coverage
@@ -1093,7 +1091,7 @@ open class ClaimResponseInsurance: BackboneElement {
 		self.sequence = sequence
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		businessArrangement: FHIRPrimitive<FHIRString>? = nil,
@@ -1112,9 +1110,9 @@ open class ClaimResponseInsurance: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case businessArrangement; case _businessArrangement
 		case claimResponse
@@ -1122,11 +1120,11 @@ open class ClaimResponseInsurance: BackboneElement {
 		case focal; case _focal
 		case sequence; case _sequence
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.businessArrangement = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .businessArrangement, auxiliaryKey: ._businessArrangement)
 		self.claimResponse = try Reference(from: _container, forKeyIfPresent: .claimResponse)
@@ -1135,11 +1133,11 @@ open class ClaimResponseInsurance: BackboneElement {
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try businessArrangement?.encode(on: &_container, forKey: .businessArrangement, auxiliaryKey: ._businessArrangement)
 		try claimResponse?.encode(on: &_container, forKey: .claimResponse)
@@ -1148,9 +1146,9 @@ open class ClaimResponseInsurance: BackboneElement {
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseInsurance else {
 			return false
@@ -1164,7 +1162,7 @@ open class ClaimResponseInsurance: BackboneElement {
 		    && focal == _other.focal
 		    && sequence == _other.sequence
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(businessArrangement)
@@ -1177,31 +1175,31 @@ open class ClaimResponseInsurance: BackboneElement {
 
 /**
  Adjudication for claim line items.
- 
+
  A claim line. Either a simple (a product or service) or a 'group' of details which can also be a simple items or groups
  of sub-details.
  */
 open class ClaimResponseItem: BackboneElement {
-	
+
 	/// Claim item instance identifier
 	public var itemSequence: FHIRPrimitive<FHIRPositiveInteger>
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Adjudication details
 	public var adjudication: [ClaimResponseItemAdjudication]
-	
+
 	/// Adjudication for claim details
 	public var detail: [ClaimResponseItemDetail]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(adjudication: [ClaimResponseItemAdjudication], itemSequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.adjudication = adjudication
 		self.itemSequence = itemSequence
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication],
@@ -1219,20 +1217,20 @@ open class ClaimResponseItem: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.noteNumber = noteNumber
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case detail
 		case itemSequence; case _itemSequence
 		case noteNumber; case _noteNumber
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKey: .adjudication)
 		self.detail = try [ClaimResponseItemDetail](from: _container, forKeyIfPresent: .detail)
@@ -1240,11 +1238,11 @@ open class ClaimResponseItem: BackboneElement {
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication.encode(on: &_container, forKey: .adjudication)
 		try detail?.encode(on: &_container, forKey: .detail)
@@ -1252,9 +1250,9 @@ open class ClaimResponseItem: BackboneElement {
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseItem else {
 			return false
@@ -1267,7 +1265,7 @@ open class ClaimResponseItem: BackboneElement {
 		    && itemSequence == _other.itemSequence
 		    && noteNumber == _other.noteNumber
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -1279,30 +1277,30 @@ open class ClaimResponseItem: BackboneElement {
 
 /**
  Adjudication details.
- 
+
  If this item is a group then the values here are a summary of the adjudication of the detail items. If this item is a
  simple product or service then this is the result of the adjudication of this item.
  */
 open class ClaimResponseItemAdjudication: BackboneElement {
-	
+
 	/// Type of adjudication information
 	public var category: CodeableConcept
-	
+
 	/// Explanation of adjudication outcome
 	public var reason: CodeableConcept?
-	
+
 	/// Monetary amount
 	public var amount: Money?
-	
+
 	/// Non-monetary value
 	public var value: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Designated initializer taking all required properties
 	public init(category: CodeableConcept) {
 		self.category = category
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		amount: Money? = nil,
@@ -1321,20 +1319,20 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 		self.reason = reason
 		self.value = value
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case amount
 		case category
 		case reason
 		case value; case _value
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.amount = try Money(from: _container, forKeyIfPresent: .amount)
 		self.category = try CodeableConcept(from: _container, forKey: .category)
@@ -1342,11 +1340,11 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 		self.value = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .value, auxiliaryKey: ._value)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try amount?.encode(on: &_container, forKey: .amount)
 		try category.encode(on: &_container, forKey: .category)
@@ -1354,9 +1352,9 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 		try value?.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseItemAdjudication else {
 			return false
@@ -1369,7 +1367,7 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 		    && reason == _other.reason
 		    && value == _other.value
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(amount)
@@ -1381,30 +1379,30 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 
 /**
  Adjudication for claim details.
- 
+
  A claim detail. Either a simple (a product or service) or a 'group' of sub-details which are simple items.
  */
 open class ClaimResponseItemDetail: BackboneElement {
-	
+
 	/// Claim detail instance identifier
 	public var detailSequence: FHIRPrimitive<FHIRPositiveInteger>
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Detail level adjudication details
 	public var adjudication: [ClaimResponseItemAdjudication]
-	
+
 	/// Adjudication for claim sub-details
 	public var subDetail: [ClaimResponseItemDetailSubDetail]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(adjudication: [ClaimResponseItemAdjudication], detailSequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.adjudication = adjudication
 		self.detailSequence = detailSequence
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication],
@@ -1422,20 +1420,20 @@ open class ClaimResponseItemDetail: BackboneElement {
 		self.noteNumber = noteNumber
 		self.subDetail = subDetail
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case detailSequence; case _detailSequence
 		case noteNumber; case _noteNumber
 		case subDetail
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKey: .adjudication)
 		self.detailSequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .detailSequence, auxiliaryKey: ._detailSequence)
@@ -1443,11 +1441,11 @@ open class ClaimResponseItemDetail: BackboneElement {
 		self.subDetail = try [ClaimResponseItemDetailSubDetail](from: _container, forKeyIfPresent: .subDetail)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication.encode(on: &_container, forKey: .adjudication)
 		try detailSequence.encode(on: &_container, forKey: .detailSequence, auxiliaryKey: ._detailSequence)
@@ -1455,9 +1453,9 @@ open class ClaimResponseItemDetail: BackboneElement {
 		try subDetail?.encode(on: &_container, forKey: .subDetail)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseItemDetail else {
 			return false
@@ -1470,7 +1468,7 @@ open class ClaimResponseItemDetail: BackboneElement {
 		    && noteNumber == _other.noteNumber
 		    && subDetail == _other.subDetail
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -1482,26 +1480,26 @@ open class ClaimResponseItemDetail: BackboneElement {
 
 /**
  Adjudication for claim sub-details.
- 
+
  A sub-detail adjudication of a simple product or service.
  */
 open class ClaimResponseItemDetailSubDetail: BackboneElement {
-	
+
 	/// Claim sub-detail instance identifier
 	public var subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>
-	
+
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
-	
+
 	/// Subdetail level adjudication details
 	public var adjudication: [ClaimResponseItemAdjudication]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.subDetailSequence = subDetailSequence
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ClaimResponseItemAdjudication]? = nil,
@@ -1518,39 +1516,39 @@ open class ClaimResponseItemDetailSubDetail: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.noteNumber = noteNumber
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjudication
 		case noteNumber; case _noteNumber
 		case subDetailSequence; case _subDetailSequence
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjudication = try [ClaimResponseItemAdjudication](from: _container, forKeyIfPresent: .adjudication)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
 		self.subDetailSequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjudication?.encode(on: &_container, forKey: .adjudication)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
 		try subDetailSequence.encode(on: &_container, forKey: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseItemDetailSubDetail else {
 			return false
@@ -1562,7 +1560,7 @@ open class ClaimResponseItemDetailSubDetail: BackboneElement {
 		    && noteNumber == _other.noteNumber
 		    && subDetailSequence == _other.subDetailSequence
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjudication)
@@ -1573,36 +1571,36 @@ open class ClaimResponseItemDetailSubDetail: BackboneElement {
 
 /**
  Payment Details.
- 
+
  Payment details for the adjudication of the claim.
  */
 open class ClaimResponsePayment: BackboneElement {
-	
+
 	/// Partial or complete payment
 	public var type: CodeableConcept
-	
+
 	/// Payment adjustment for non-claim issues
 	public var adjustment: Money?
-	
+
 	/// Explanation for the adjustment
 	public var adjustmentReason: CodeableConcept?
-	
+
 	/// Expected date of payment
 	public var date: FHIRPrimitive<FHIRDate>?
-	
+
 	/// Payable amount after adjustment
 	public var amount: Money
-	
+
 	/// Business identifier for the payment
 	public var identifier: Identifier?
-	
+
 	/// Designated initializer taking all required properties
 	public init(amount: Money, type: CodeableConcept) {
 		self.amount = amount
 		self.type = type
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		adjustment: Money? = nil,
@@ -1624,9 +1622,9 @@ open class ClaimResponsePayment: BackboneElement {
 		self.identifier = identifier
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case adjustment
 		case adjustmentReason
@@ -1635,11 +1633,11 @@ open class ClaimResponsePayment: BackboneElement {
 		case identifier
 		case type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.adjustment = try Money(from: _container, forKeyIfPresent: .adjustment)
 		self.adjustmentReason = try CodeableConcept(from: _container, forKeyIfPresent: .adjustmentReason)
@@ -1649,11 +1647,11 @@ open class ClaimResponsePayment: BackboneElement {
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try adjustment?.encode(on: &_container, forKey: .adjustment)
 		try adjustmentReason?.encode(on: &_container, forKey: .adjustmentReason)
@@ -1663,9 +1661,9 @@ open class ClaimResponsePayment: BackboneElement {
 		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponsePayment else {
 			return false
@@ -1680,7 +1678,7 @@ open class ClaimResponsePayment: BackboneElement {
 		    && identifier == _other.identifier
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(adjustment)
@@ -1694,29 +1692,29 @@ open class ClaimResponsePayment: BackboneElement {
 
 /**
  Note concerning adjudication.
- 
+
  A note that describes or explains adjudication results in a human readable form.
  */
 open class ClaimResponseProcessNote: BackboneElement {
-	
+
 	/// Note instance identifier
 	public var number: FHIRPrimitive<FHIRPositiveInteger>?
-	
+
 	/// The business purpose of the note text.
 	public var type: FHIRPrimitive<NoteType>?
-	
+
 	/// Note explanatory text
 	public var text: FHIRPrimitive<FHIRString>
-	
+
 	/// Language of the text
 	public var language: CodeableConcept?
-	
+
 	/// Designated initializer taking all required properties
 	public init(text: FHIRPrimitive<FHIRString>) {
 		self.text = text
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -1735,20 +1733,20 @@ open class ClaimResponseProcessNote: BackboneElement {
 		self.number = number
 		self.type = type
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case language
 		case number; case _number
 		case text; case _text
 		case type; case _type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.language = try CodeableConcept(from: _container, forKeyIfPresent: .language)
 		self.number = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
@@ -1756,11 +1754,11 @@ open class ClaimResponseProcessNote: BackboneElement {
 		self.type = try FHIRPrimitive<NoteType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try language?.encode(on: &_container, forKey: .language)
 		try number?.encode(on: &_container, forKey: .number, auxiliaryKey: ._number)
@@ -1768,9 +1766,9 @@ open class ClaimResponseProcessNote: BackboneElement {
 		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseProcessNote else {
 			return false
@@ -1783,7 +1781,7 @@ open class ClaimResponseProcessNote: BackboneElement {
 		    && text == _other.text
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(language)
@@ -1795,24 +1793,24 @@ open class ClaimResponseProcessNote: BackboneElement {
 
 /**
  Adjudication totals.
- 
+
  Categorized monetary totals for the adjudication.
  */
 open class ClaimResponseTotal: BackboneElement {
-	
+
 	/// Type of adjudication information
 	public var category: CodeableConcept
-	
+
 	/// Financial total for the category
 	public var amount: Money
-	
+
 	/// Designated initializer taking all required properties
 	public init(amount: Money, category: CodeableConcept) {
 		self.amount = amount
 		self.category = category
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		amount: Money,
@@ -1826,36 +1824,36 @@ open class ClaimResponseTotal: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case amount
 		case category
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.amount = try Money(from: _container, forKey: .amount)
 		self.category = try CodeableConcept(from: _container, forKey: .category)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try amount.encode(on: &_container, forKey: .amount)
 		try category.encode(on: &_container, forKey: .category)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ClaimResponseTotal else {
 			return false
@@ -1866,7 +1864,7 @@ open class ClaimResponseTotal: BackboneElement {
 		return amount == _other.amount
 		    && category == _other.category
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(amount)

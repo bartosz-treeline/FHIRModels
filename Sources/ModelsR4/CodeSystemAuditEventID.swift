@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Event Types for Audit Events - defined by DICOM with some FHIR specific additions.

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by

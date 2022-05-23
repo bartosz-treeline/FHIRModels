@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Why an entry is in the result set - whether it's included as a match or because of an _include requirement, or to

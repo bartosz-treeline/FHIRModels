@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  The marketing status describes the date when a medicinal product is actually put on the market or the date as of which

@@ -17,58 +17,58 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  Tracks balance, charges, for patient or cost center.
- 
+
  A financial tool for tracking value accrued for a particular purpose.  In the healthcare field, used to track charges
  for a patient, cost centers, etc.
  */
 open class Account: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .account }
-	
+
 	/// Account number
 	public var identifier: [Identifier]?
-	
+
 	/// Indicates whether the account is presently used/usable or not.
 	public var status: FHIRPrimitive<AccountStatus>
-	
+
 	/// E.g. patient, expense, depreciation
 	public var type: CodeableConcept?
-	
+
 	/// Human-readable label
 	public var name: FHIRPrimitive<FHIRString>?
-	
+
 	/// The entity that caused the expenses
 	public var subject: [Reference]?
-	
+
 	/// Transaction window
 	public var servicePeriod: Period?
-	
+
 	/// The party(s) that are responsible for covering the payment of this account, and what order should they be
 	/// applied to the account
 	public var coverage: [AccountCoverage]?
-	
+
 	/// Entity managing the Account
 	public var owner: Reference?
-	
+
 	/// Explanation of purpose/use
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
+
 	/// The parties ultimately responsible for balancing the Account
 	public var guarantor: [AccountGuarantor]?
-	
+
 	/// Reference to a parent Account
 	public var partOf: Reference?
-	
+
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<AccountStatus>) {
 		self.status = status
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		contained: [ResourceProxy]? = nil,
@@ -111,9 +111,9 @@ open class Account: DomainResource {
 		self.text = text
 		self.type = type
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case coverage
 		case description_fhir = "description"; case _description_fhir = "_description"
@@ -127,11 +127,11 @@ open class Account: DomainResource {
 		case subject
 		case type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.coverage = try [AccountCoverage](from: _container, forKeyIfPresent: .coverage)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -146,11 +146,11 @@ open class Account: DomainResource {
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try coverage?.encode(on: &_container, forKey: .coverage)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -165,9 +165,9 @@ open class Account: DomainResource {
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? Account else {
 			return false
@@ -187,7 +187,7 @@ open class Account: DomainResource {
 		    && subject == _other.subject
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(coverage)
@@ -209,19 +209,19 @@ open class Account: DomainResource {
  the account.
  */
 open class AccountCoverage: BackboneElement {
-	
+
 	/// The party(s), such as insurances, that may contribute to the payment of this account
 	public var coverage: Reference
-	
+
 	/// The priority of the coverage in the context of this account
 	public var priority: FHIRPrimitive<FHIRPositiveInteger>?
-	
+
 	/// Designated initializer taking all required properties
 	public init(coverage: Reference) {
 		self.coverage = coverage
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		coverage: Reference,
@@ -236,36 +236,36 @@ open class AccountCoverage: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.priority = priority
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case coverage
 		case priority; case _priority
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.coverage = try Reference(from: _container, forKey: .coverage)
 		self.priority = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try coverage.encode(on: &_container, forKey: .coverage)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? AccountCoverage else {
 			return false
@@ -276,7 +276,7 @@ open class AccountCoverage: BackboneElement {
 		return coverage == _other.coverage
 		    && priority == _other.priority
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(coverage)
@@ -286,26 +286,26 @@ open class AccountCoverage: BackboneElement {
 
 /**
  The parties ultimately responsible for balancing the Account.
- 
+
  The parties responsible for balancing the account if other payment options fall short.
  */
 open class AccountGuarantor: BackboneElement {
-	
+
 	/// Responsible entity
 	public var party: Reference
-	
+
 	/// Credit or other hold applied
 	public var onHold: FHIRPrimitive<FHIRBool>?
-	
+
 	/// Guarantee account during
 	public var period: Period?
-	
+
 	/// Designated initializer taking all required properties
 	public init(party: Reference) {
 		self.party = party
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -322,39 +322,39 @@ open class AccountGuarantor: BackboneElement {
 		self.onHold = onHold
 		self.period = period
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case onHold; case _onHold
 		case party
 		case period
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.onHold = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .onHold, auxiliaryKey: ._onHold)
 		self.party = try Reference(from: _container, forKey: .party)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try onHold?.encode(on: &_container, forKey: .onHold, auxiliaryKey: ._onHold)
 		try party.encode(on: &_container, forKey: .party)
 		try period?.encode(on: &_container, forKey: .period)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? AccountGuarantor else {
 			return false
@@ -366,7 +366,7 @@ open class AccountGuarantor: BackboneElement {
 		    && party == _other.party
 		    && period == _other.period
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(onHold)

@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Detailed information about the type of the image - its kind, purpose, or the kind of equipment used to generate it.

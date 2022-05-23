@@ -17,44 +17,44 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  Contains a collection of resources.
- 
+
  A container for a collection of resources.
  */
 open class Bundle: Resource {
-	
+
 	override open class var resourceType: ResourceType { return .bundle }
-	
+
 	/// Persistent identifier for the bundle
 	public var identifier: Identifier?
-	
+
 	/// Indicates the purpose of this bundle - how it is intended to be used.
 	public var type: FHIRPrimitive<BundleType>
-	
+
 	/// When the bundle was assembled
 	public var timestamp: FHIRPrimitive<Instant>?
-	
+
 	/// If search, the total number of matches
 	public var total: FHIRPrimitive<FHIRUnsignedInteger>?
-	
+
 	/// Links related to this Bundle
 	public var link: [BundleLink]?
-	
+
 	/// Entry in the bundle - will have a resource or information
 	public var entry: [BundleEntry]?
-	
+
 	/// Digital Signature
 	public var signature: Signature?
-	
+
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<BundleType>) {
 		self.type = type
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		entry: [BundleEntry]? = nil,
@@ -81,9 +81,9 @@ open class Bundle: Resource {
 		self.timestamp = timestamp
 		self.total = total
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case entry
 		case identifier
@@ -93,11 +93,11 @@ open class Bundle: Resource {
 		case total; case _total
 		case type; case _type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.entry = try [BundleEntry](from: _container, forKeyIfPresent: .entry)
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
@@ -108,11 +108,11 @@ open class Bundle: Resource {
 		self.type = try FHIRPrimitive<BundleType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try entry?.encode(on: &_container, forKey: .entry)
 		try identifier?.encode(on: &_container, forKey: .identifier)
@@ -123,9 +123,9 @@ open class Bundle: Resource {
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? Bundle else {
 			return false
@@ -141,7 +141,7 @@ open class Bundle: Resource {
 		    && total == _other.total
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(entry)
@@ -156,35 +156,35 @@ open class Bundle: Resource {
 
 /**
  Entry in the bundle - will have a resource or information.
- 
+
  An entry in a bundle resource - will either contain a resource or information about a resource (transactions and
  history only).
  */
 open class BundleEntry: BackboneElement {
-	
+
 	/// Links related to this entry
 	public var link: [BundleLink]?
-	
+
 	/// URI for resource (Absolute URL server address or URI for UUID/OID)
 	public var fullUrl: FHIRPrimitive<FHIRURI>?
-	
+
 	/// A resource in the bundle
 	public var resource: ResourceProxy?
-	
+
 	/// Search related information
 	public var search: BundleEntrySearch?
-	
+
 	/// Additional execution information (transaction/batch/history)
 	public var request: BundleEntryRequest?
-	
+
 	/// Results of execution (transaction/batch/history)
 	public var response: BundleEntryResponse?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -208,9 +208,9 @@ open class BundleEntry: BackboneElement {
 		self.response = response
 		self.search = search
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case fullUrl; case _fullUrl
 		case link
@@ -219,11 +219,11 @@ open class BundleEntry: BackboneElement {
 		case response
 		case search
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.fullUrl = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .fullUrl, auxiliaryKey: ._fullUrl)
 		self.link = try [BundleLink](from: _container, forKeyIfPresent: .link)
@@ -233,11 +233,11 @@ open class BundleEntry: BackboneElement {
 		self.search = try BundleEntrySearch(from: _container, forKeyIfPresent: .search)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try fullUrl?.encode(on: &_container, forKey: .fullUrl, auxiliaryKey: ._fullUrl)
 		try link?.encode(on: &_container, forKey: .link)
@@ -247,9 +247,9 @@ open class BundleEntry: BackboneElement {
 		try search?.encode(on: &_container, forKey: .search)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BundleEntry else {
 			return false
@@ -264,7 +264,7 @@ open class BundleEntry: BackboneElement {
 		    && response == _other.response
 		    && search == _other.search
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(fullUrl)
@@ -278,38 +278,38 @@ open class BundleEntry: BackboneElement {
 
 /**
  Additional execution information (transaction/batch/history).
- 
+
  Additional information about how this entry should be processed as part of a transaction or batch.  For history, it
  shows how the entry was processed to create the version contained in the entry.
  */
 open class BundleEntryRequest: BackboneElement {
-	
+
 	/// In a transaction or batch, this is the HTTP action to be executed for this entry. In a history bundle, this
 	/// indicates the HTTP action that occurred.
 	public var method: FHIRPrimitive<HTTPVerb>
-	
+
 	/// URL for HTTP equivalent of this entry
 	public var url: FHIRPrimitive<FHIRURI>
-	
+
 	/// For managing cache currency
 	public var ifNoneMatch: FHIRPrimitive<FHIRString>?
-	
+
 	/// For managing cache currency
 	public var ifModifiedSince: FHIRPrimitive<Instant>?
-	
+
 	/// For managing update contention
 	public var ifMatch: FHIRPrimitive<FHIRString>?
-	
+
 	/// For conditional creates
 	public var ifNoneExist: FHIRPrimitive<FHIRString>?
-	
+
 	/// Designated initializer taking all required properties
 	public init(method: FHIRPrimitive<HTTPVerb>, url: FHIRPrimitive<FHIRURI>) {
 		self.method = method
 		self.url = url
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -331,9 +331,9 @@ open class BundleEntryRequest: BackboneElement {
 		self.ifNoneMatch = ifNoneMatch
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case ifMatch; case _ifMatch
 		case ifModifiedSince; case _ifModifiedSince
@@ -342,11 +342,11 @@ open class BundleEntryRequest: BackboneElement {
 		case method; case _method
 		case url; case _url
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.ifMatch = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .ifMatch, auxiliaryKey: ._ifMatch)
 		self.ifModifiedSince = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .ifModifiedSince, auxiliaryKey: ._ifModifiedSince)
@@ -356,11 +356,11 @@ open class BundleEntryRequest: BackboneElement {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try ifMatch?.encode(on: &_container, forKey: .ifMatch, auxiliaryKey: ._ifMatch)
 		try ifModifiedSince?.encode(on: &_container, forKey: .ifModifiedSince, auxiliaryKey: ._ifModifiedSince)
@@ -370,9 +370,9 @@ open class BundleEntryRequest: BackboneElement {
 		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BundleEntryRequest else {
 			return false
@@ -387,7 +387,7 @@ open class BundleEntryRequest: BackboneElement {
 		    && method == _other.method
 		    && url == _other.url
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(ifMatch)
@@ -401,33 +401,33 @@ open class BundleEntryRequest: BackboneElement {
 
 /**
  Results of execution (transaction/batch/history).
- 
+
  Indicates the results of processing the corresponding 'request' entry in the batch or transaction being responded to or
  what the results of an operation where when returning history.
  */
 open class BundleEntryResponse: BackboneElement {
-	
+
 	/// Status response code (text optional)
 	public var status: FHIRPrimitive<FHIRString>
-	
+
 	/// The location (if the operation returns a location)
 	public var location: FHIRPrimitive<FHIRURI>?
-	
+
 	/// The Etag for the resource (if relevant)
 	public var etag: FHIRPrimitive<FHIRString>?
-	
+
 	/// Server's date time modified
 	public var lastModified: FHIRPrimitive<Instant>?
-	
+
 	/// OperationOutcome with hints and warnings (for batch/transaction)
 	public var outcome: ResourceProxy?
-	
+
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<FHIRString>) {
 		self.status = status
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		etag: FHIRPrimitive<FHIRString>? = nil,
@@ -448,9 +448,9 @@ open class BundleEntryResponse: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.outcome = outcome
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case etag; case _etag
 		case lastModified; case _lastModified
@@ -458,11 +458,11 @@ open class BundleEntryResponse: BackboneElement {
 		case outcome
 		case status; case _status
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.etag = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .etag, auxiliaryKey: ._etag)
 		self.lastModified = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .lastModified, auxiliaryKey: ._lastModified)
@@ -471,11 +471,11 @@ open class BundleEntryResponse: BackboneElement {
 		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try etag?.encode(on: &_container, forKey: .etag, auxiliaryKey: ._etag)
 		try lastModified?.encode(on: &_container, forKey: .lastModified, auxiliaryKey: ._lastModified)
@@ -484,9 +484,9 @@ open class BundleEntryResponse: BackboneElement {
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BundleEntryResponse else {
 			return false
@@ -500,7 +500,7 @@ open class BundleEntryResponse: BackboneElement {
 		    && outcome == _other.outcome
 		    && status == _other.status
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(etag)
@@ -513,23 +513,23 @@ open class BundleEntryResponse: BackboneElement {
 
 /**
  Search related information.
- 
+
  Information about the search process that lead to the creation of this entry.
  */
 open class BundleEntrySearch: BackboneElement {
-	
+
 	/// Why this entry is in the result set - whether it's included as a match or because of an _include requirement, or
 	/// to convey information or warning information about the search process.
 	public var mode: FHIRPrimitive<SearchEntryMode>?
-	
+
 	/// Search ranking (between 0 and 1)
 	public var score: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -545,36 +545,36 @@ open class BundleEntrySearch: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.score = score
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case mode; case _mode
 		case score; case _score
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.mode = try FHIRPrimitive<SearchEntryMode>(from: _container, forKeyIfPresent: .mode, auxiliaryKey: ._mode)
 		self.score = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .score, auxiliaryKey: ._score)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try mode?.encode(on: &_container, forKey: .mode, auxiliaryKey: ._mode)
 		try score?.encode(on: &_container, forKey: .score, auxiliaryKey: ._score)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BundleEntrySearch else {
 			return false
@@ -585,7 +585,7 @@ open class BundleEntrySearch: BackboneElement {
 		return mode == _other.mode
 		    && score == _other.score
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(mode)
@@ -595,24 +595,24 @@ open class BundleEntrySearch: BackboneElement {
 
 /**
  Links related to this Bundle.
- 
+
  A series of links that provide context to this bundle.
  */
 open class BundleLink: BackboneElement {
-	
+
 	/// See http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
 	public var relation: FHIRPrimitive<FHIRString>
-	
+
 	/// Reference details for the link
 	public var url: FHIRPrimitive<FHIRURI>
-	
+
 	/// Designated initializer taking all required properties
 	public init(relation: FHIRPrimitive<FHIRString>, url: FHIRPrimitive<FHIRURI>) {
 		self.relation = relation
 		self.url = url
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
@@ -626,36 +626,36 @@ open class BundleLink: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case relation; case _relation
 		case url; case _url
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.relation = try FHIRPrimitive<FHIRString>(from: _container, forKey: .relation, auxiliaryKey: ._relation)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try relation.encode(on: &_container, forKey: .relation, auxiliaryKey: ._relation)
 		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? BundleLink else {
 			return false
@@ -666,7 +666,7 @@ open class BundleLink: BackboneElement {
 		return relation == _other.relation
 		    && url == _other.url
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(relation)

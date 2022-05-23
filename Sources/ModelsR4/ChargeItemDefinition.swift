@@ -17,95 +17,93 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
-
 /**
  Definition of properties and rules about how the price and the applicability of a ChargeItem can be determined.
- 
+
  The ChargeItemDefinition resource provides the properties that apply to the (billing) codes necessary to calculate
  costs and prices. The properties may differ largely depending on type and realm, therefore this resource gives only a
  rough structure and requires profiling for each type of billing code system.
  */
 open class ChargeItemDefinition: DomainResource {
-	
+
 	override open class var resourceType: ResourceType { return .chargeItemDefinition }
-	
+
 	/// Canonical identifier for this charge item definition, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>
-	
+
 	/// Additional identifier for the charge item definition
 	public var identifier: [Identifier]?
-	
+
 	/// Business version of the charge item definition
 	public var version: FHIRPrimitive<FHIRString>?
-	
+
 	/// Name for this charge item definition (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
-	
+
 	/// Underlying externally-defined charge item definition
 	public var derivedFromUri: [FHIRPrimitive<FHIRURI>]?
-	
+
 	/// A larger definition of which this particular definition is a component or step
 	public var partOf: [FHIRPrimitive<Canonical>]?
-	
+
 	/// Completed or terminated request(s) whose function is taken by this new request
 	public var replaces: [FHIRPrimitive<Canonical>]?
-	
+
 	/// The current state of the ChargeItemDefinition.
 	public var status: FHIRPrimitive<PublicationStatus>
-	
+
 	/// For testing purposes, not real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
-	
+
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
-	
+
 	/// Name of the publisher (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
-	
+
 	/// Contact details for the publisher
 	public var contact: [ContactDetail]?
-	
+
 	/// Natural language description of the charge item definition
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
+
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
-	
+
 	/// Intended jurisdiction for charge item definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
-	
+
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
-	
+
 	/// When the charge item definition was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
-	
+
 	/// When the charge item definition was last reviewed
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
-	
+
 	/// When the charge item definition is expected to be used
 	public var effectivePeriod: Period?
-	
+
 	/// Billing codes or product types this definition applies to
 	public var code: CodeableConcept?
-	
+
 	/// Instances this definition applies to
 	public var instance: [Reference]?
-	
+
 	/// Whether or not the billing code is applicable
 	public var applicability: [ChargeItemDefinitionApplicability]?
-	
+
 	/// Group of properties which are applicable under the same conditions
 	public var propertyGroup: [ChargeItemDefinitionPropertyGroup]?
-	
+
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<PublicationStatus>, url: FHIRPrimitive<FHIRURI>) {
 		self.status = status
 		self.url = url
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		applicability: [ChargeItemDefinitionApplicability]? = nil,
@@ -171,9 +169,9 @@ open class ChargeItemDefinition: DomainResource {
 		self.useContext = useContext
 		self.version = version
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case applicability
 		case approvalDate; case _approvalDate
@@ -199,11 +197,11 @@ open class ChargeItemDefinition: DomainResource {
 		case useContext
 		case version; case _version
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.applicability = try [ChargeItemDefinitionApplicability](from: _container, forKeyIfPresent: .applicability)
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
@@ -230,11 +228,11 @@ open class ChargeItemDefinition: DomainResource {
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try applicability?.encode(on: &_container, forKey: .applicability)
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
@@ -261,9 +259,9 @@ open class ChargeItemDefinition: DomainResource {
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ChargeItemDefinition else {
 			return false
@@ -295,7 +293,7 @@ open class ChargeItemDefinition: DomainResource {
 		    && useContext == _other.useContext
 		    && version == _other.version
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(applicability)
@@ -326,25 +324,25 @@ open class ChargeItemDefinition: DomainResource {
 
 /**
  Whether or not the billing code is applicable.
- 
+
  Expressions that describe applicability criteria for the billing code.
  */
 open class ChargeItemDefinitionApplicability: BackboneElement {
-	
+
 	/// Natural language description of the condition
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
+
 	/// Language of the expression
 	public var language: FHIRPrimitive<FHIRString>?
-	
+
 	/// Boolean-valued expression
 	public var expression: FHIRPrimitive<FHIRString>?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
@@ -362,39 +360,39 @@ open class ChargeItemDefinitionApplicability: BackboneElement {
 		self.language = language
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case expression; case _expression
 		case language; case _language
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.expression = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .expression, auxiliaryKey: ._expression)
 		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .language, auxiliaryKey: ._language)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try expression?.encode(on: &_container, forKey: .expression, auxiliaryKey: ._expression)
 		try language?.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ChargeItemDefinitionApplicability else {
 			return false
@@ -406,7 +404,7 @@ open class ChargeItemDefinitionApplicability: BackboneElement {
 		    && expression == _other.expression
 		    && language == _other.language
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(description_fhir)
@@ -417,23 +415,23 @@ open class ChargeItemDefinitionApplicability: BackboneElement {
 
 /**
  Group of properties which are applicable under the same conditions.
- 
+
  Group of properties which are applicable under the same conditions. If no applicability rules are established for the
  group, then all properties always apply.
  */
 open class ChargeItemDefinitionPropertyGroup: BackboneElement {
-	
+
 	/// Conditions under which the priceComponent is applicable
 	public var applicability: [ChargeItemDefinitionApplicability]?
-	
+
 	/// Components of total line item price
 	public var priceComponent: [ChargeItemDefinitionPropertyGroupPriceComponent]?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		applicability: [ChargeItemDefinitionApplicability]? = nil,
@@ -449,36 +447,36 @@ open class ChargeItemDefinitionPropertyGroup: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.priceComponent = priceComponent
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case applicability
 		case priceComponent
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.applicability = try [ChargeItemDefinitionApplicability](from: _container, forKeyIfPresent: .applicability)
 		self.priceComponent = try [ChargeItemDefinitionPropertyGroupPriceComponent](from: _container, forKeyIfPresent: .priceComponent)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try applicability?.encode(on: &_container, forKey: .applicability)
 		try priceComponent?.encode(on: &_container, forKey: .priceComponent)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ChargeItemDefinitionPropertyGroup else {
 			return false
@@ -489,7 +487,7 @@ open class ChargeItemDefinitionPropertyGroup: BackboneElement {
 		return applicability == _other.applicability
 		    && priceComponent == _other.priceComponent
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(applicability)
@@ -499,32 +497,32 @@ open class ChargeItemDefinitionPropertyGroup: BackboneElement {
 
 /**
  Components of total line item price.
- 
+
  The price for a ChargeItem may be calculated as a base price with surcharges/deductions that apply in certain
  conditions. A ChargeItemDefinition resource that defines the prices, factors and conditions that apply to a billing
  code is currently under development. The priceComponent element can be used to offer transparency to the recipient of
  the Invoice of how the prices have been calculated.
  */
 open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
-	
+
 	/// This code identifies the type of the component.
 	public var type: FHIRPrimitive<InvoicePriceComponentType>
-	
+
 	/// Code identifying the specific component
 	public var code: CodeableConcept?
-	
+
 	/// Factor used for calculating this component
 	public var factor: FHIRPrimitive<FHIRDecimal>?
-	
+
 	/// Monetary amount associated with this component
 	public var amount: Money?
-	
+
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<InvoicePriceComponentType>) {
 		self.type = type
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		amount: Money? = nil,
@@ -543,20 +541,20 @@ open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case amount
 		case code
 		case factor; case _factor
 		case type; case _type
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.amount = try Money(from: _container, forKeyIfPresent: .amount)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
@@ -564,11 +562,11 @@ open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 		self.type = try FHIRPrimitive<InvoicePriceComponentType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try amount?.encode(on: &_container, forKey: .amount)
 		try code?.encode(on: &_container, forKey: .code)
@@ -576,9 +574,9 @@ open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ChargeItemDefinitionPropertyGroupPriceComponent else {
 			return false
@@ -591,7 +589,7 @@ open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 		    && factor == _other.factor
 		    && type == _other.type
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(amount)

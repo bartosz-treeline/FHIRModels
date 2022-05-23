@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A rating system that describes the strength of the recommendation, such as the GRADE, DynaMed, or HGPS systems.

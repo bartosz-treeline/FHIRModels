@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  This value set includes sample Claim SubType codes which are used to distinguish the claim types for example within

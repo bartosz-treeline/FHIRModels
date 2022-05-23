@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  A definition of a set of people that apply to some clinically related context, for example people contraindicated for a

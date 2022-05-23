@@ -17,53 +17,53 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+import Foundation
 
 /**
  An address expressed using postal conventions (as opposed to GPS or other location definition formats).
- 
+
  An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type
  may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid
  for mail delivery.  There are a variety of postal address formats defined around the world.
  */
 open class Address: Element {
-	
+
 	/// The purpose of this address.
 	public var use: FHIRPrimitive<AddressUse>?
-	
+
 	/// Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of
 	/// addresses). Most addresses are both.
 	public var type: FHIRPrimitive<AddressType>?
-	
+
 	/// Text representation of the address
 	public var text: FHIRPrimitive<FHIRString>?
-	
+
 	/// Street name, number, direction & P.O. Box etc.
 	public var line: [FHIRPrimitive<FHIRString>]?
-	
+
 	/// Name of city, town etc.
 	public var city: FHIRPrimitive<FHIRString>?
-	
+
 	/// District name (aka county)
 	public var district: FHIRPrimitive<FHIRString>?
-	
+
 	/// Sub-unit of country (abbreviations ok)
 	public var state: FHIRPrimitive<FHIRString>?
-	
+
 	/// Postal code for area
 	public var postalCode: FHIRPrimitive<FHIRString>?
-	
+
 	/// Country (e.g. can be ISO 3166 2 or 3 letter code)
 	public var country: FHIRPrimitive<FHIRString>?
-	
+
 	/// Time period when address was/is in use
 	public var period: Period?
-	
+
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
 	}
-	
+
 	/// Convenience initializer
 	public convenience init(
 		city: FHIRPrimitive<FHIRString>? = nil,
@@ -93,9 +93,9 @@ open class Address: Element {
 		self.type = type
 		self.use = use
 	}
-	
+
 	// MARK: - Codable
-	
+
 	private enum CodingKeys: String, CodingKey {
 		case city; case _city
 		case country; case _country
@@ -108,11 +108,11 @@ open class Address: Element {
 		case type; case _type
 		case use; case _use
 	}
-	
+
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Decode all our properties
 		self.city = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .city, auxiliaryKey: ._city)
 		self.country = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .country, auxiliaryKey: ._country)
@@ -126,11 +126,11 @@ open class Address: Element {
 		self.use = try FHIRPrimitive<AddressUse>(from: _container, forKeyIfPresent: .use, auxiliaryKey: ._use)
 		try super.init(from: decoder)
 	}
-	
+
 	/// Encodable
 	public override func encode(to encoder: Encoder) throws {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
+
 		// Encode all our properties
 		try city?.encode(on: &_container, forKey: .city, auxiliaryKey: ._city)
 		try country?.encode(on: &_container, forKey: .country, auxiliaryKey: ._country)
@@ -144,9 +144,9 @@ open class Address: Element {
 		try use?.encode(on: &_container, forKey: .use, auxiliaryKey: ._use)
 		try super.encode(to: encoder)
 	}
-	
+
 	// MARK: - Equatable & Hashable
-	
+
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? Address else {
 			return false
@@ -165,7 +165,7 @@ open class Address: Element {
 		    && type == _other.type
 		    && use == _other.use
 	}
-	
+
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(city)

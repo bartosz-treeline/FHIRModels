@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Nucleic acids are defined by three distinct elements: the base, sugar and linkage. Individual substance/moiety IDs will

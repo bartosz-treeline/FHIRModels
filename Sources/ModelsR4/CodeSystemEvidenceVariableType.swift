@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  The possible types of variables for exposures or outcomes (E.g. Dichotomous, Continuous, Descriptive).

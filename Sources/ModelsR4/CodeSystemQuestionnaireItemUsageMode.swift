@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Identifies the modes of usage of a questionnaire that should enable a particular questionnaire item.

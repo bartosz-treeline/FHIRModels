@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.

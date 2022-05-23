@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  Whether the risk estimate is dichotomous, continuous or qualitative and the specific type of risk estimate (eg

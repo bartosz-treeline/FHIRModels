@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import FMCore
+
 
 /**
  General reasons for a list to be empty. Reasons are either related to a summary list (i.e. problem or medication list)
